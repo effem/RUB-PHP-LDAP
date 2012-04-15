@@ -6,15 +6,20 @@
 	 * Filename:    ldap.php
 	 */
 
-	$loginName = $_POST['loginName'];
-	$loginPassword = $_POST['loginPassword'];
+	if (isset($_POST) && isset($_POST['loginName']) && isset($_POST['loginPassword'])){
+		$loginName = $_POST['loginName'];
+		$loginPassword = $_POST['loginPassword'];
 
-	$ldap = ldap_connect('ldap://ldap.ruhr-uni-bochum.de', 389);
-	$dn = "uid=".$loginName.",ou=users,dc=ruhr-uni-bochum,dc=de";
-	$bind = ldap_bind($ldap, $dn, $loginPassword);
-	if ($bind){
-		echo 'Login success!';
-		return true;
+		$ldap = ldap_connect('ldap://ldap.ruhr-uni-bochum.de', 389);
+		$dn = "uid=".$loginName.",ou=users,dc=ruhr-uni-bochum,dc=de";
+		$bind = ldap_bind($ldap, $dn, $loginPassword);
+		if ($bind){
+			echo 'Login success!';
+			return true;
+		}else{
+			echo 'Login success!';
+			return false;
+		}
 	}
 ?>
 
@@ -29,9 +34,9 @@
 <body>
 <fieldset>
 	<legend>Login</legend>
-	<form method="post" action="#">
+	<form method="post" action="ldap.php">
 		<label>Login</label>
-		<input type="text" name="loginName"placeholder="Login ID">
+		<input type="text" name="loginName" placeholder="Login ID">
 		<label>Passwort</label>
 		<input type="password" name="loginPassword" placeholder="Passwort">
 		<button type="submit">Login</button>
