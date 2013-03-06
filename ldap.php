@@ -10,14 +10,14 @@
 		$loginName = $_POST['loginName'];
 		$loginPassword = $_POST['loginPassword'];
 
-		$ldap = ldap_connect('ldap://ldap.ruhr-uni-bochum.de', 389);
+		$ldap = ldap_connect('ldaps://ldap.ruhr-uni-bochum.de', 389);
 		$dn = "uid=".$loginName.",ou=users,dc=ruhr-uni-bochum,dc=de";
 		$bind = ldap_bind($ldap, $dn, $loginPassword);
 		if ($bind){
 			echo 'Login success!';
 			return true;
 		}else{
-			echo 'Login success!';
+			echo 'Login false!';
 			return false;
 		}
 	}
